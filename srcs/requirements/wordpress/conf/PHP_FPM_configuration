@@ -1,0 +1,13 @@
+; Decalre a pool of CGIs, called www.
+[www]
+; User amd group that will be used to run the CGIs.
+user = www-data
+group = www-data
+; Port on which to listen for requests.
+listen = wordpress:9000
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 3
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+pm.max_requests = 100
