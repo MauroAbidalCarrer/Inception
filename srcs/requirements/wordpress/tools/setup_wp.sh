@@ -1,3 +1,7 @@
+#!/bin/bash
+
+echo "setup.sh caaaaaaaaled"
+
 #Create the directory that PHP-fpm will use to store its sockets.
 mkdir -p /run/php
 
