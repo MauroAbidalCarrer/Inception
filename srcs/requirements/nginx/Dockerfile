@@ -1,5 +1,8 @@
 FROM debian:buster
 
+ARG DOMAIN_NAME
+ARG CERTS_
+
 RUN apt-get update
 RUN apt-get install -y nginx openssl
 

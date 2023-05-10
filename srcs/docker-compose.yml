@@ -13,7 +13,11 @@ services:
 #      -  "9000:9000" 
 
   nginx:
-    build: requirements/nginx/
+    build: 
+      context: requirements/nginx/
+      args:
+        - CERTS_=${CERTS_}
+        - DOMAIN_NAME=${DOMAIN_NAME}
     environment:
       - CERTS_=${CERTS_}
       - DOMAIN_NAME=${DOMAIN_NAME}
