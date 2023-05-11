@@ -47,13 +47,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/wordpress_volume
+      device: /home/$LOGIN/data/wordpress_vol
   mariadb_vol:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/mariadb_volume
+      device: /home/$LOGIN/data/mariadb_vol
 
 networks:
   network42:
