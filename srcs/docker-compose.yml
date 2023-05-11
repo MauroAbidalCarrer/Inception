@@ -19,8 +19,10 @@ services:
         - CERTS_=${CERTS_}
         - DOMAIN_NAME=${DOMAIN_NAME}
     environment:
-      - CERTS_=${CERTS_}
+      - CERTS=${CERTS_}
       - DOMAIN_NAME=${DOMAIN_NAME}
+    env_file:
+      - .env
     restart: always
     ports:
       -  "443:443"
