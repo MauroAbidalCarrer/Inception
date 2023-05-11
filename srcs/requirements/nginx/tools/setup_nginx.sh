@@ -1,14 +1,4 @@
 #!/bin/bash
-
-#echo "ls /var/www/html"
-#ls /var/www/html
-#cat /var/www/html/index.nginx-debian.html
-#echo ""
-
-echo ""
-echo ""
-echo ""
-
 #For some reasons, if we use the CERTS_ variable directly in the conf file like for the domain, the variable does not get expanded.
 #So we sed it manually.
 sed -i -r "s|cert_path_placeholder|${CERTS_}|g" /etc/nginx/sites-available/default
@@ -16,7 +6,10 @@ sed -i -r "s|cert_path_placeholder|${CERTS_}|g" /etc/nginx/sites-available/defau
 #echo "conf after sed:"
 #cat /etc/nginx/sites-available/default
 
+ls -R /var/www/html/wordpress | grep admin
 
+echo ""
+echo "Running nginx..."
 nginx -g "daemon off;"
 
 echo ""
