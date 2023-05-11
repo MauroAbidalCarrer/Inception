@@ -1,0 +1,14 @@
+; Declare a CGI pool called 'www'.
+[www]
+; Declare the user and group that will be using the pool.
+user = www-data
+group = www-data
+; Declare the network interface on which to listen for requests.
+listen = wordpress:9000
+; Define pools characteristics.
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 3
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+pm.max_requests = 100

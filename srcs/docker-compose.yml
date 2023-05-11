@@ -1,16 +1,25 @@
 version: "3.9"
 services:
 
-#  wordpress:
-#    build: requirements/wordpress/
-#    environement:
-#      - WORDPRESS_TITLE=${WORDPRESS_TITLE}
-#      - WORDPRESS_ADMIN_USER=${WORDPRESS_ADMIN_USER}
-#      - WORDPRESS_ADMIN_PASSWORD=${WORDPRESS_ADMIN_PASSWORD}
-#      - WORDPRESS_ADMIN_EMAIL=${WORDPRESS_ADMIN_EMAIL}
-#    restart: always
-#    ports:
-#      -  "9000:9000" 
+  mariadb:
+    image: mariadb
+    volumes:
+      - mariadb_vol:/var/lib/mysql
+    ports:
+      - 3306:3306
+    env_file: .env
+
+  wordpress:
+    build: requirements/wordpress/
+    env_file:
+      - .env
+    restart: always
+    ports:
+      -  "9000:9000" 
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_vol:/var/www/html/wordpress
 
   nginx:
     build: 
@@ -18,13 +27,34 @@ services:
       args:
         - CERTS_=${CERTS_}
         - DOMAIN_NAME=${DOMAIN_NAME}
-    environment:
-      - CERTS=${CERTS_}
-      - DOMAIN_NAME=${DOMAIN_NAME}
     env_file:
       - .env
     restart: always
     ports:
       -  "443:443"
-#    depends_on:
-#      wordpress
+    volumes:
+      - wordpress_vol:/var/www/html/wordpress
+    depends_on:
+      - wordpress
+
+#"driver: local"= Store the volume on the host machine.
+#"type: none"   = Don't use any specific driver. (This is the default options but we still need to specify it).
+#"o: bind"      = Bind the volume to a directory in the container.
+#"device: path" = Path where the volume should be created in the hoste machine.
+volumes:
+  wordpress_vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/wordpress_volume
+  mariadb_vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mariadb_volume
+
+networks:
+  network42:
+    driver: bridge
