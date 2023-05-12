@@ -8,7 +8,7 @@ all:
 
 clean:
 	-docker rm -f srcs-nginx-1 srcs-wordpress-1 srcs-mariadb-1
-	-docker volume rm -f wordpress_vol mariadb_vol
+	-docker volume rm -f srcs_wordpress_vol srcs_mariadb_vol
 	-docker image rm -f srcs-nginx srcs-wordpress srcs-mariadb
 	-rm -rf /home/maabidal/data
 

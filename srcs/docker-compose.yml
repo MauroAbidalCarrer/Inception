@@ -2,12 +2,14 @@ version: "3.9"
 services:
 
   mariadb:
-    image: mariadb
+    build: requirements/mariadb/
+    restart: always
     volumes:
       - mariadb_vol:/var/lib/mysql
     ports:
       - 3306:3306
-    env_file: .env
+    env_file:
+      - .env
 
   wordpress:
     build: requirements/wordpress/
